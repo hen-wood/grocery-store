@@ -17,6 +17,28 @@ export const actionRemoveFromCart = id => {
 		id
 	};
 };
+
+// Change count
+const CHANGE_COUNT = "cart/CHANGE_COUNT";
+
+export const actionChangeCount = (id, change) => {
+	return {
+		type: CHANGE_COUNT,
+		id,
+		change
+	};
+};
+
+// Remove all items
+const REMOVE_ALL_ITEMS = "cart/REMOVE_ALL_ITEMS";
+
+export const actionRemoveAllItems = () => {
+	return {
+		type: REMOVE_ALL_ITEMS
+	};
+};
+
+// Cart Reducer Function
 export default function cartReducer(state = {}, action) {
 	switch (action.type) {
 		case ADD_TO_CART:
@@ -30,6 +52,14 @@ export default function cartReducer(state = {}, action) {
 			const removeId = action.id;
 			delete newRemoveState[removeId];
 			return newRemoveState;
+		case CHANGE_COUNT:
+			const newChangeState = { ...state };
+			const changeId = action.id;
+			const change = action.change;
+			newChangeState[changeId].count += change;
+			return newChangeState;
+		case REMOVE_ALL_ITEMS:
+			return {};
 		default:
 			return state;
 	}
