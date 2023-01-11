@@ -1,7 +1,9 @@
 // ./src/store/index.js
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-
-const rootReducer = combineReducers({});
+import produceReducer from "./produceReducer";
+const rootReducer = combineReducers({
+	produce: produceReducer
+});
 
 let enhancer;
 
