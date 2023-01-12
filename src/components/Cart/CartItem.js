@@ -29,11 +29,25 @@ function CartItem({ item }) {
 		}
 	};
 
+	const handleNumberChange = e => {
+		const newCount = e.target.value;
+		if (newCount < 1) {
+			dispatch(actionRemoveFromCart(item.id));
+		} else {
+			dispatch(actionChangeCount(item.id, newCount - item.count));
+		}
+	};
+
 	return (
 		<li className="cart-item">
 			<div className="cart-item-header">{item.name}</div>
 			<div className="cart-item-menu">
-				<input type="number" value={count} />
+				<input
+					type="number"
+					value={count}
+					onChange={e => setCount(e.target.value)}
+					onBlur={handleNumberChange}
+				/>
 				<button className="cart-item-button" onClick={handlePlusClick}>
 					+
 				</button>

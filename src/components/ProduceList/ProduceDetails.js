@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionAddToCart } from "../../store/cartReducer";
+import { actionAddToCart, actionChangeCount } from "../../store/cartReducer";
 import { actionChangeLikeStatus } from "../../store/produceReducer";
 
 function ProduceDetails({ produce }) {
@@ -7,7 +8,11 @@ function ProduceDetails({ produce }) {
 	const dispatch = useDispatch();
 
 	const handleAddClick = () => {
-		dispatch(actionAddToCart(produce.id));
+		if (!cartItem) {
+			dispatch(actionAddToCart(produce.id));
+		} else {
+			dispatch(actionChangeCount(produce.id, 1));
+		}
 	};
 
 	const handleLikeClick = () => {
